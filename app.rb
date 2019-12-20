@@ -38,7 +38,7 @@ sunrise: 07:46
 sunset: 16:28
 END_OF_TIME
 
-    # s = `hdate -s -l 45.57 -L -122.69`
+    s = `hdate -s -l 45.57 -L -122.69`
     m = s.match /sunrise: (\d\d):(\d\d)/
     sunrise_hour = m[1]
     sunrise_minute = m[2]

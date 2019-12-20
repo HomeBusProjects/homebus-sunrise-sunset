@@ -6,9 +6,9 @@ After=network.target
 Type=simple
 
 User=homebus
-WorkingDirectory=/home/homebus/homebus-aqi
+WorkingDirectory=/home/homebus/homebus-sunrise-sunset
 
-ExecStart=/home/homebus/.rbenv/bin/rbenv exec bundle exec homebus-aqi.rb
+ExecStart=/home/homebus/.rbenv/bin/rbenv exec bundle exec homebus-sunrise-sunset.rb
 TimeoutSec=30
 
 Restart=always

@@ -18,3 +18,8 @@ Once it's provisioned it stores its provisioning information in `.env.provisioni
 
 - the latitude and longitude of the location whose sunrise and sunset times are being reported
 
+This is stored in the `.env` file:
+```
+LONGITUDE=
+LATITUDE=
+```
