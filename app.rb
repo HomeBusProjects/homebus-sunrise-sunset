@@ -68,7 +68,7 @@ END_OF_TIME
 #                      day: today.to_time.to_i,
                       sunrise: sunrise.to_s,
                       sunset: sunset.to_s,
-                      day_duration: sunset.to_i - sunrise.to_i
+                      day_duration: sunset.to_time.to_i - sunrise.to_time.to_i
                     }
     }
     pp answer
