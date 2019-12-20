@@ -112,7 +112,7 @@ END_OF_TIME
         index: 0,
         accuracy: 0,
         precision: 0,
-        wo_topics: [ '/solar_times' ],
+        wo_topics: [ 'org.homebus.sunrise-sunset' ],
         ro_topics: [],
         rw_topics: []
       }
