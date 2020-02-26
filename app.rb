@@ -60,8 +60,10 @@ END_OF_TIME
   def work!
     sunrise, sunset = _get_times
 
-    puts "sunrise #{sunrise.to_s}"
-    puts "sunset #{sunset.to_s}"
+    if options[:verbose]
+      puts "sunrise #{sunrise.to_s}"
+      puts "sunset #{sunset.to_s}"
+    end
 
     answer = {
       id: @uuid,
@@ -69,8 +71,8 @@ END_OF_TIME
     }
 
     answer[DDC] = {
-      sunrise: sunrise,
-      sunset: sunset
+      sunrise: sunrise.to_time.to_i,
+      sunset: sunset.to_time.to_i
     }
 
     if options[:verbose]
