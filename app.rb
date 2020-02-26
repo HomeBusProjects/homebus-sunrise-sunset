@@ -41,7 +41,7 @@ sunrise: 07:46
 sunset: 16:28
 END_OF_TIME
 
-    # s = `hdate -s -l 45.57 -L -122.69`
+    s = `hdate -s -l 45.57 -L -122.69`
     m = s.match /sunrise: (\d\d):(\d\d)/
     sunrise_hour = m[1]
     sunrise_minute = m[2]
@@ -118,7 +118,7 @@ END_OF_TIME
         index: 0,
         accuracy: 0,
         precision: 0,
-        wo_topics: [ '/solar_times' ],
+        wo_topics: [ 'org.homebus.sunrise-sunset' ],
         ro_topics: [],
         rw_topics: []
       }
