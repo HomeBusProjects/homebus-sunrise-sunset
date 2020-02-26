@@ -8,6 +8,8 @@ require 'json'
 require 'time'
 
 class SunriseSunsetHomeBusApp < HomeBusApp
+  DDC = 'org.homebus.experimental.solar-clock'
+
   def initialize(options)
     @options = options
     super
@@ -19,6 +21,7 @@ class SunriseSunsetHomeBusApp < HomeBusApp
 
   def setup!
     Dotenv.load('.env')
+
     @latitude = options[:latitude].to_i || ENV['LATITUDE'].to_i
     @longitude = options[:longitude].to_i || ENV['LONGITUDE'].to_i
 
@@ -29,7 +32,7 @@ class SunriseSunsetHomeBusApp < HomeBusApp
 #    @calculator = SolarEventCalculator.new Date.today, @latitude, @longitude
   end
 
-  def get_times
+  def _get_times
     s = <<END_OF_TIME
 hdate: ALERT: time zone not entered, using system local time zone: PST, -8:0 UTC
 
@@ -55,29 +58,32 @@ END_OF_TIME
   end
 
   def work!
-    
-    sunrise, sunset = get_times
+    sunrise, sunset = _get_times
 
     puts "sunrise #{sunrise.to_s}"
     puts "sunset #{sunset.to_s}"
 
-    answer =         {
-                    id: @uuid,
-                    timestamp: Time.now.to_i,
-                    solar_times: {
-#                      day: today.to_time.to_i,
-                      sunrise: sunrise.to_s,
-                      sunset: sunset.to_s,
-                      day_duration: sunset.to_i - sunrise.to_i
-                    }
+    answer = {
+      id: @uuid,
+      timestamp: Time.now.to_i
     }
-    pp answer
+
+    answer[DDC] = {
+      sunrise: sunrise.to_s,
+      sunset: sunset.to_s
+    }
+
+    if options[:verbose]
+      pp answer
+    end
           
-    @mqtt.publish 'homebus/device/' + @uuid,
-                  JSON.generate(answer),
-                  true
+    publish! DDC, answer
 
     sleep update_delay
+
+    if options[:once]
+      exit
+    end
   end
 
   def manufacturer
