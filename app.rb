@@ -69,8 +69,8 @@ END_OF_TIME
     }
 
     answer[DDC] = {
-      sunrise: sunrise.to_s,
-      sunset: sunset.to_s
+      sunrise: sunrise,
+      sunset: sunset
     }
 
     if options[:verbose]
