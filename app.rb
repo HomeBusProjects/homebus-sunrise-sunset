@@ -66,11 +66,6 @@ END_OF_TIME
     end
 
     answer = {
-      id: @uuid,
-      timestamp: Time.now.to_i
-    }
-
-    answer[DDC] = {
       sunrise: sunrise.to_time.to_i,
       sunset: sunset.to_time.to_i
     }
