@@ -76,11 +76,12 @@ END_OF_TIME
           
     publish! DDC, answer
 
-    sleep update_delay
-
     if options[:once]
       exit
     end
+
+    sleep update_delay
+
   end
 
   def manufacturer
