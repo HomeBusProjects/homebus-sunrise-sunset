@@ -1,6 +1,6 @@
-require 'homebus_app_options'
+require 'homebus/options'
 
-class SunriseSunsetHomeBusAppOptions < HomeBusAppOptions
+class SunriseSunsetHomebusAppOptions < Homebus::Options
   def app_options(op)
     latitude_help = 'the latitude of the reporting area'
     longitude_help = 'the longitude of the reporting area'

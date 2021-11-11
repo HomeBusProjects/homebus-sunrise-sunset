@@ -1,13 +1,10 @@
 # coding: utf-8
 require 'homebus'
-require 'homebus_app'
-require 'mqtt'
 require 'dotenv'
-require 'json'
 
 require 'time'
 
-class SunriseSunsetHomeBusApp < HomeBusApp
+class SunriseSunsetHomebusApp < Homebus::App
   DDC = 'org.homebus.experimental.solar-clock'
 
   def initialize(options)
@@ -15,7 +12,7 @@ class SunriseSunsetHomeBusApp < HomeBusApp
     super
   end
 
-  def update_delay
+  def update_interval
     60*60*24
   end
 
@@ -24,12 +21,16 @@ class SunriseSunsetHomeBusApp < HomeBusApp
 
     @latitude = options[:latitude].to_i || ENV['LATITUDE'].to_i
     @longitude = options[:longitude].to_i || ENV['LONGITUDE'].to_i
+    @location = options[:location] || ENV['LOCATION']
 
-    unless @latitude && @longitude
-      abort 'Requires latitude and longitude in .env or command-line options'
+    unless @latitude && @longitude && @location
+      abort 'Requires LATITUDE, LONGITUDE and LOCATION in .env or command-line options'
     end
 
-#    @calculator = SolarEventCalculator.new Date.today, @latitude, @longitude
+    @device = Homebus::Device.new name: "Sunrise Sunset times at #{@location}",
+                                  manufacturer: 'Homebus',
+                                  model: 'Sunrise/sunset publisher',
+                                  serial_number: "#{@latitude} N #{@longitude} W"
   end
 
   def _get_times
@@ -80,46 +81,18 @@ END_OF_TIME
       exit
     end
 
-    sleep update_delay
-
+    sleep update_interval
   end
 
-  def manufacturer
-    'HomeBus'
-  end
-
-  def model
+  def name
     'Sunrise/Sunset times'
   end
 
-  def friendly_name
-    'Sunrise/sunset times'
-  end
-
-  def friendly_location
-    'Portland, OR'
-  end
-
-  def serial_number
-    "#{@latitude} N #{@longitude} W"
-  end
-
-  def pin
-    ''
+  def publishes
+    [ DDC ]
   end
 
   def devices
-    [
-      { friendly_name: 'Sunrise Sunset times',
-        friendly_location: 'Portland, OR',
-        update_frequency: update_delay,
-        index: 0,
-        accuracy: 0,
-        precision: 0,
-        wo_topics: [ 'org.homebus.sunrise-sunset' ],
-        ro_topics: [],
-        rw_topics: []
-      }
-    ]
+    [ @device ]
   end
 end

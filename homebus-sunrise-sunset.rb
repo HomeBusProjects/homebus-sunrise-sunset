@@ -3,7 +3,7 @@
 require './options'
 require './app'
 
-sun_app_options = SunriseSunsetHomeBusAppOptions.new
+sun_app_options = SunriseSunsetHomebusAppOptions.new
 
-sun = SunriseSunsetHomeBusApp.new sun_app_options.options
+sun = SunriseSunsetHomebusApp.new sun_app_options.options
 sun.run!
