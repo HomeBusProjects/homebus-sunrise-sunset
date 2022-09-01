@@ -4,7 +4,7 @@ require 'dotenv'
 
 require 'time'
 
-class SunriseSunsetHomebusApp < Homebus::App
+class HomebusSunriseSunset::App < Homebus::App
   DDC = 'org.homebus.experimental.solar-clock'
 
   def initialize(options)

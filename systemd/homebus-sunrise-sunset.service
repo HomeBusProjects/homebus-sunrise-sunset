@@ -1,16 +1,13 @@
 [Unit]
-Description=HomeBus Air Quality Index publisher
+Description=HomeBus publisher
 After=network.target
 
 [Service]
 Type=simple
-
 User=homebus
 WorkingDirectory=/home/homebus/homebus-sunrise-sunset
-
-ExecStart=/home/homebus/.rbenv/bin/rbenv exec bundle exec homebus-sunrise-sunset.rb
+ExecStart=/home/homebus/.rbenv/bin/rbenv exec bundle exec bin/homebus-sunrise-sunset
 TimeoutSec=30
-
 Restart=always
 
 [Install]

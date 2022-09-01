@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'homebus-sunrise-sunset/options'
+require 'homebus-sunrise-sunset/app'
+
+options = HomebusSunriseSunset::Options.new
+app = HomebusSunriseSunset::App.new(options.options)
+app.run!
+
