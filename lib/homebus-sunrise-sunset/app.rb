@@ -19,8 +19,12 @@ class HomebusSunriseSunset::App < Homebus::App
   def setup!
     Dotenv.load('.env')
 
-    @latitude = options[:latitude].to_i || ENV['LATITUDE'].to_i
-    @longitude = options[:longitude].to_i || ENV['LONGITUDE'].to_i
+    @latitude = options[:latitude] || ENV['LATITUDE']
+    @latitude = @latitude.to_f
+
+    @longitude = options[:longitude] || ENV['LONGITUDE']
+    @longitude = @longitude.to_f
+
     @location = options[:location] || ENV['LOCATION']
 
     unless @latitude && @longitude && @location
@@ -75,7 +79,7 @@ END_OF_TIME
       pp answer
     end
           
-    publish! DDC, answer
+    @device.publish! DDC, answer
 
     if options[:once]
       exit
